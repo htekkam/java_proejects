@@ -1,0 +1,66 @@
+to create docker image
+--------------------------------------------
+docker build -t spring-boot-docker.jar
+
+to check the docker files
+-----------------------------------------------
+docker image ls
+
+to run the docker image(9090 docker port and 8080 application port)
+----------------------------------------
+docker run -p 9090:8080 spring-boot-docker.jar
+
+http://192.168.99.100:9090/welcome
+
+to login to docker hub
+------------------------------------------------
+docker login
+
+user name: th00870620
+password : Gunnu@2018
+
+
+
+to create a tag to push to docker hub
+-------------------------------------------
+docker tag th00870620/spring-boot-docker.jar
+
+to push the docker image
+----------------------------------------------
+docker push th00870620/spring-boot-docker.jar
+
+command to pull the image
+-------------------------------------------------
+docker pull th00870620/spring-boot-docker.jar
+
+
+spring boot command to create docker image from application
+---------------------------------------------------------------
+go to project directory
+
+mvn spring-boot:build-image
+
+
+steps to create and use docker image using google-jib
+--------------------------------------------------------
+1.) add the following pluging in pom.xml
+       <plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.5</version> <!-- Replace with the latest version -->
+				<configuration>
+					<from>
+						<image>openjdk:17</image> <!-- Replace with your desired base image -->
+					</from>
+					<to>
+						<image>registry.hub.docker.com/th00870620/google-jib-image-example</image> <!-- Replace with your desired target image -->
+					</to>
+				</configuration>
+			</plugin>
+			
+2.) run the below command from terminal to create docker image 
+    mvn clean compile jib:build
+	
+3.) run the below command to run the docker image
+         
+		docker run -it -p 8080:8081 th00870620/google-jib-image-example
